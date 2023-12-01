@@ -6,8 +6,9 @@ const Schema = mongoose.Schema;
 //allow client to use google name as username or custom username.
 const UserSchema = new Schema({
       username: { type: String, required: true },
-      password: { type: String, required: true },
+      hashedPassword: { type: String, required: true },
       email: { type: String, required: true },
+      admin: { type: Boolean, default: false, required: true }
     })
 
 UserSchema.virtual("url").get(function () {
@@ -15,4 +16,4 @@ UserSchema.virtual("url").get(function () {
 });
     
 
-  module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", UserSchema);

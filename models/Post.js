@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const CommentSchema = require("./Comment");
+const CommentSchema = require("./Comment"); 
 
+// comments field is an array of comment subdocuments.
 const PostSchema = new Schema({
       title: { type: String, required: true },
       copy: { type: String, required: true },
