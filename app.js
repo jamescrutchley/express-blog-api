@@ -4,6 +4,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors')
 const mongoose = require("mongoose");
 
 
@@ -19,6 +20,10 @@ db.on("error", console.error.bind(console, "mongo connection error"));
 
 
 var app = express();
+
+
+// configure later.
+app.use(cors())
 
 
 app.use(logger('dev'));
