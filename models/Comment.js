@@ -8,5 +8,9 @@ const CommentSchema = new Schema({
     deprecated: { type: Boolean, default: false, required: true }
   });
 
+  const Comment = mongoose.model('Comment', CommentSchema);
 
-  module.exports = CommentSchema;
+
+  module.exports = Comment;
+
+
