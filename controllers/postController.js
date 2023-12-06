@@ -14,7 +14,7 @@ exports.getPostById = asyncHandler(async (req, res, next) => {
       message: "Invalid post ID",
     });
   }
-  const post = await Post.findById(req.params.postId).populate("likes").exec();
+  const post = await Post.findById(req.params.postId).populate("likes comments").exec();
   if (post === null) {
     // No results.
     const err = new Error("Post not found");
@@ -121,7 +121,7 @@ exports.deletePost = asyncHandler(async (req, res, next) => {
         res.status(201).json({
           status: "success",
           message: "Post deleted successfully",
-          data: postToDelete,
+          deletedPost: postToDelete,
         });
       } else {
         res.status(500).json({
