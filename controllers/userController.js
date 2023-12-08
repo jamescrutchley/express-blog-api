@@ -3,6 +3,13 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 const { body, validationResult } = require("express-validator");
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+function generateAccessToken(userId) {
+    return jwt.sign(userId, process.env.TOKEN_SECRET, { expiresIn: '86400s' });
+  }
 
 exports.getHome = asyncHandler(async (req, res, next) => {
   res.send("home");
