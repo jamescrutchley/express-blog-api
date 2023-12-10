@@ -7,19 +7,25 @@ const mongoose = require("mongoose");
     try {
       const existingDocuments = await Model.find(query);
   
+      //todo - clean this up
       if (existingDocuments.length > 0) {
-        const conflictField = values.find(([field, value]) =>
-          existingDocuments.some(doc => doc[field] === value)
-        );
+        const conflictFields = values.reduce((acc, [field, value]) => {
+            if (existingDocuments.some(doc => doc[field] === value)) {
+              acc.push({ [field]: value });
+            }
+            return acc;
+          }, []);        
+          
+        const conflicts = conflictFields.map(field => Object.keys(field)).flat()
 
+
+        console.log(conflicts)
 
   //fix this
         return {
           isUnique: false,
-          conflictField: conflictField ? conflictField[0] : null,
-          message: conflictField
-            ? `The provided ${conflictField[0]} is already in use.`
-            : 'Conflict in one or more fields.',
+          conflicts: conflicts,
+          message: `Values already in use.`,
         };
       } else {
         return { isUnique: true };
