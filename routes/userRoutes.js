@@ -9,11 +9,11 @@ const authenticateToken = require('../middleware/jwt-auth');
 
 
 router.get('/', userController.getHome);
-router.get('/users/:userId', userController.getUserById);
+router.get('/users/:userId', authenticateToken, userController.getUserById);
 router.get('/users', userController.getAllUsers)
 router.post('/users', userController.createUser)
-router.put('/users/:userId', userController.updateUser)
-router.delete('/users/:userId', userController.deleteUser)
+router.put('/users/:userId', authenticateToken, userController.updateUser)
+router.delete('/users/:userId', authenticateToken, userController.deleteUser)
 
 router.post('/login', authController.login)
 router.get('/testauth', authenticateToken, authController.testAuth )
